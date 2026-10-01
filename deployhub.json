@@ -1,0 +1,19 @@
+{
+  "name": "deployhub_django",
+  "framework": "Django",
+  "category": "Backend - Python",
+  "runtime": "python",
+  "port": 8000,
+  "buildCommand": "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate",
+  "startCommand": "gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3",
+  "healthCheck": {
+    "path": "/api/health/",
+    "expectedStatus": 200,
+    "timeoutSeconds": 10
+  },
+  "env": {
+    "PORT": "8000",
+    "DEBUG": "False",
+    "ALLOWED_HOSTS": "*"
+  }
+}
